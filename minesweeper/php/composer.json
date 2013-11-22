@@ -1,0 +1,19 @@
+{
+    "name": "egulias/breakable-toys",
+    "description": "Small programs to explore new languages",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Eduardo Gulias Davis",
+            "email": "me@egulias.com"
+        }
+    ],
+    "minimum-stability": "dev",
+    "require": {
+    },
+    "autoload": {
+      "psr-0": {
+        "Egulias\\": "src/"
+      }
+    }
+}
