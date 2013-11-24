@@ -13,23 +13,30 @@ use Egulias\MineDetectorGame;
  */
 class MineDetectorGameTest extends \PHPUnit_Framework_TestCase
 {
+    public function testField()
+    {
+        $mineDetector = new MineDetectorGame(2, 2);
+        $field = $mineDetector->getField();
+        $this->assertInstanceOf('Egulias\MineField', $field);
+    }
+
     /**
      *
-     * @expectedException MineExplodedException
+     * @expectedException Egulias\MineExplodedException
      */
     public function testCoordinatesIsMine()
     {
-        $field[0][0] = 0;
-        $field[0][1] = 0;
-        $field[0][2] = 0;
-        $field[1][0] = 0;
-        $field[1][1] = 0;
-        $field[1][2] = 'M';
-        $field[2][0] = 0;
-        $field[2][1] = 0;
-        $field[2][2] = 0;
+        $mineDetector = new MineDetectorGame(2, 2);
+        $mineDetector->clear(0, 0);
+        $mineDetector->clear(0, 1);
+        $mineDetector->clear(1, 0);
+        $mineDetector->clear(1, 1);
+    }
 
-        $mineDetector = new MineDetectorGame(new Minesweeper($field, 'M'));
-        $mineDetector->clear(1, 2);
+    public function testDiscoveredZones()
+    {
+        $mineDetector = new MineDetectorGame(2, 2);
+        $field = $mineDetector->clear(0, 0);
+        var_dump($field);
     }
 }

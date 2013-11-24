@@ -14,16 +14,28 @@ class MineDetectorGame
      */
     protected $minesweeper;
 
-    public function __construct(Minesweeper $minesweeper)
+    public function __construct($xSize, $ySize, $mines = 1)
     {
-        $this->Minesweeper = $minesweeper;
-        $this->minesweeper->sweep();
+        $this->field = new MineField($xSize, $ySize, $mines);
+        $this->minesweeper = new Minesweeper($this->field->getArrayCopy(), 'M');
+        $this->field = $this->minesweeper->sweep();
     }
 
     public function clear($x, $y)
     {
-        if ($this->minesweeper->isMine($x, $y)) {
+        if ($this->minesweeper->isMine($y, $x)) {
             throw new MineExplodedException();
         }
+        $this->clearZones($x, $y);
+    }
+
+    protected function clearZones($x, $y)
+    {
+
+    }
+
+    public function getField()
+    {
+        return $this->field;
     }
 }

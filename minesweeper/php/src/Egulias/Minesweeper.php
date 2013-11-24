@@ -29,6 +29,14 @@ class Minesweeper
         return $this->parsedField;
     }
 
+    public function isMine($x, $y)
+    {
+        if ($this->field[$y][$x] === $this->mineMarker) {
+            return true;
+        }
+        return false;
+    }
+
     protected function markSides($x, $y)
     {
         if (isset($this->parsedField[$y-1][$x]) && !$this->isMine($x, $y-1)) {
@@ -59,13 +67,5 @@ class Minesweeper
         if (isset($this->parsedField[$y-1][$x+1]) && !$this->isMine($x+1, $y-1)) {
             $this->parsedField[$y-1][$x+1]++;
         }
-    }
-
-    protected function isMine($x, $y)
-    {
-        if ($this->field[$y][$x] === $this->mineMarker) {
-            return true;
-        }
-        return false;
     }
 }
