@@ -4,7 +4,7 @@ namespace Egulias;
 
 use Egulias\Minesweeper;
 use Egulias\MineExplodedException;
-use Egulias\MineGenerator;
+use Egulias\MineGeneratorStrategy;
 use Egulias\GameWinException;
 
 class MineDetectorGame
@@ -14,10 +14,8 @@ class MineDetectorGame
     protected $minesweeper;
     protected $mines;
 
-    public function __construct($xSize = 1, $ySize = 1, $mines = 1)
+    public function __construct(MineGeneratorStrategy $mg)
     {
-        $mg = new MineGenerator($xSize, $ySize, $mines);
-        $this->mines;
         $this->initGame($mg->getFieldWithMines());
     }
 
@@ -50,7 +48,7 @@ class MineDetectorGame
 
     public function markMine($x, $y, $mark = 'X')
     {
-        $this->markedMines[[$y, $x]] = 'X';
+        $this->markedMines[$y][$x] = $mark;
         $this->checkWinCondition();
         return $this->markedMines;
     }

@@ -2,7 +2,7 @@
 
 namespace Egulias;
 
-class MineGenerator
+class MineGenerator implements MineGeneratorStrategy
 {
     protected $mineField = array();
     protected $xSize;
