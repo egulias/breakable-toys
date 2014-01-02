@@ -2,18 +2,29 @@
 
 namespace Egulias;
 
-use \ArrayObject;
-
-class MineField extends ArrayObject
+class MineGenerator
 {
+    protected $mineField = array();
+    protected $xSize;
+    protected $ySize;
+
     public function __construct($xSize, $ySize, $mines = 1)
     {
         $this->xSize = (int) $xSize;
         $this->ySize = (int) $ySize;
-        $field = array_fill(0, $this->xSize, array_fill(0, (int)$this->ySize, 0));
-        $field = $this->generateMines($field, $mines);
-        parent::__construct($field);
+        $size = $this->ySize * $this->xSize;
+        $field = array_fill(0, $this->xSize, array_fill(0, $this->ySize, 0));
 
+        if ($size < $mines) {
+            throw new \InvalidArgumentException('Too many mines');
+        }
+
+        $this->mineField = $this->generateMines($field, $mines);
+    }
+
+    public function getFieldWithMines()
+    {
+        return $this->mineField;
     }
 
     protected function generateMines(array $field, $mines)

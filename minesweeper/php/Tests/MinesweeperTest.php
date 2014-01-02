@@ -30,6 +30,23 @@ class MinesweeperTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals(1, $result[2][2]);
     }
 
+    public function testMinesPosition()
+    {
+        $field[0][0] = 0;
+        $field[0][1] = 0;
+        $field[0][2] = 0;
+        $field[1][0] = 0;
+        $field[1][1] = 'X';
+        $field[1][2] = 0;
+        $field[2][0] = 0;
+        $field[2][1] = 0;
+        $field[2][2] = 0;
+
+        $mineSweeper = new Minesweeper($field);
+        $mineSweeper->sweep();
+        $this->assertEquals([[1, 1]], $mineSweeper->getMines());
+    }
+
     public function testTopLeftEdgeMineSorround()
     {
         $field[0][0] = 'X';

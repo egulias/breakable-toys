@@ -22,6 +22,7 @@ class Minesweeper
                 if (!$this->isMine($j, $i)) {
                     continue;
                 }
+                $this->mines[$i][$j] = true;
                 $this->markDiagonal($j, $i);
                 $this->markSides($j, $i);
             }
@@ -35,6 +36,11 @@ class Minesweeper
             return true;
         }
         return false;
+    }
+
+    public function getMines()
+    {
+        return $this->mines;
     }
 
     protected function markSides($x, $y)
