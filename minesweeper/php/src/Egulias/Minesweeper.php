@@ -7,6 +7,7 @@ class Minesweeper
     protected $field;
     protected $parsedField;
     protected $mineMarker;
+    protected $minesFound;
 
     public function __construct(array $field, $mineMarker = 'X')
     {
@@ -25,6 +26,7 @@ class Minesweeper
                 $this->mines[$i][$j] = true;
                 $this->markDiagonal($j, $i);
                 $this->markSides($j, $i);
+                $this->minesFound++;
             }
         }
         return $this->parsedField;
@@ -36,6 +38,11 @@ class Minesweeper
             return true;
         }
         return false;
+    }
+
+    public function getMinesFound()
+    {
+        return $this->minesFound;
     }
 
     public function getMines()

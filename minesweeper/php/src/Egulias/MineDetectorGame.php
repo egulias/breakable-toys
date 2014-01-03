@@ -55,19 +55,8 @@ class MineDetectorGame
 
     protected function checkWinCondition()
     {
-        if (count($this->markedMines) === $this->mines
-            && count($this->cleared) === count($this->fieldSweeped)
-        ) {
-            $trueMines = $this->minesweeper->getMines();
-            $found = 0;
-            foreach ($this->markedMines as $mine => $mark) {
-                if (isset($trueMines[$mine[0]][$mine[1]])) {
-                    $found++;
-                }
-            }
-            if ($found === count($trueMines)) {
-                throw new GameWinException('You Win!');
-            }
+        if ($this->markedMines == $this->minesweeper->getMines() && $this->undiscovered === $this->minesCount) {
+            throw new GameWinException('You Win!');
         }
     }
 
@@ -77,6 +66,7 @@ class MineDetectorGame
             return;
         }
         $this->cleared[$y][$x] = true;
+        $this->undiscovered--;
         $posibleWays = [[$y-1, $x], [$y+1, $x], [$y, $x-1], [$y, $x+1]];
         foreach ($posibleWays as $way) {
             if (!isset($this->fieldSweeped[$way[0]][$way[1]])) {
@@ -84,6 +74,7 @@ class MineDetectorGame
             }
             if ($this->fieldSweeped[$way[0]][$way[1]]) {
                 $this->cleared[$way[0]][$way[1]] = true;
+                $this->undiscovered--;
                 continue;
             }
             $this->clearAdjacent($way[1], $way[0]);
@@ -94,5 +85,7 @@ class MineDetectorGame
     {
         $this->minesweeper = new Minesweeper($mineField, 'M');
         $this->fieldSweeped = $this->minesweeper->sweep();
+        $this->undiscovered = count($this->fieldSweeped, COUNT_RECURSIVE) - count($this->fieldSweeped);
+        $this->minesCount = $this->minesweeper->getMinesFound();
     }
 }

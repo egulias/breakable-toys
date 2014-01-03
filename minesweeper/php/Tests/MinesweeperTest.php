@@ -94,4 +94,22 @@ class MinesweeperTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals(0, $result[2][0]);
         $this->assertEquals(1, $result[2][1]);
     }
+
+    public function testMinesFound()
+    {
+        $field[0][0] = 0;
+        $field[0][1] = 0;
+        $field[0][2] = 0;
+        $field[1][0] = 0;
+        $field[1][1] = 'X';
+        $field[1][2] = 0;
+        $field[2][0] = 0;
+        $field[2][1] = 0;
+        $field[2][2] = 0;
+
+        $mineSweeper = new Minesweeper($field);
+        $mineSweeper->sweep();
+        $this->assertEquals(1, $mineSweeper->getMinesFound());
+
+    }
 }
