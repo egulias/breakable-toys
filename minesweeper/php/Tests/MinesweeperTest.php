@@ -44,7 +44,7 @@ class MinesweeperTest extends \PHPUnit_Framework_TestCase
 
         $mineSweeper = new Minesweeper($field);
         $mineSweeper->sweep();
-        $this->assertEquals([[1, 1]], $mineSweeper->getMines());
+        $this->assertEquals([1 => [1 => true]], $mineSweeper->getMines());
     }
 
     public function testTopLeftEdgeMineSorround()
