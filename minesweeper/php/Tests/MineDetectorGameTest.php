@@ -14,7 +14,7 @@ use Egulias\MineGenerator;
  */
 class MineDetectorGameTest extends \PHPUnit_Framework_TestCase
 {
-    public function testCreatNewGame()
+    public function testCreateNewGame()
     {
         $mg = new MineGenerator(2, 2, 1);
         $mineDetector = new MineDetectorGame($mg);
